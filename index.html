@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pro Resume Editor – Make Your Resume Stand Out</title>
+  <meta name="description" content="Professional resume editing service. ATS-friendly design, tailored bullets, keyword optimization, and recruiter-approved formatting. Get interview-ready fast." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #E7F6F1;         /* minty backdrop (inspired by Qonto style) */
+      --card: #ffffff;
+      --ink: #0F172A;        /* slate-900 */
+      --muted: #475569;      /* slate-600 */
+      --brand: #0EA5E9;      /* sky-500 */
+      --brand-600:#0284C7;
+      --accent:#10B981;      /* emerald */
+      --ring: rgba(14,165,233,.35);
+      --shadow: 0 10px 25px rgba(2,8,23,.06), 0 4px 10px rgba(2,8,23,.04);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; color:var(--ink);
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1100px; margin:0 auto; padding:0 24px}
+
+    /* Navbar */
+    .nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.3) blur(8px); background:rgba(231,246,241,.75); border-bottom:1px solid rgba(2,8,23,.06)}
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
+    .logo{width:30px; height:30px; border-radius:8px; background:conic-gradient(from 210deg, var(--brand), var(--accent)); box-shadow:inset 0 0 0 2px rgba(255,255,255,.8)}
+    .nav-cta{display:flex; align-items:center; gap:12px}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:999px; font-weight:600; letter-spacing:.2px; box-shadow:var(--shadow); transition:transform .06s ease, box-shadow .2s ease; border:1px solid rgba(2,8,23,.06); background:var(--card)}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--ink); color:#fff; border-color:transparent}
+    .btn-primary:hover{box-shadow:0 14px 30px rgba(15,23,42,.18)}
+
+    /* Hero */
+    .hero{padding:72px 0}
+    .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:40px; align-items:center}
+    .eyebrow{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; background:#fff; border:1px solid rgba(2,8,23,.06); border-radius:999px; font-weight:600; color:var(--muted)}
+    .title{font-size:clamp(32px, 5vw, 52px); line-height:1.05; margin:16px 0 12px; font-weight:800; letter-spacing:-.02em}
+    .subtitle{font-size:clamp(16px, 2.1vw, 19px); color:var(--muted); max-width:52ch}
+    .cta-row{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap}
+    .trust{margin-top:18px; display:flex; align-items:center; gap:12px; color:var(--muted); font-size:14px}
+    .stars{display:inline-flex; gap:2px}
+    .stars svg{width:16px; height:16px}
+
+    .mock{position:relative; padding:26px; background:var(--card); border-radius:24px; box-shadow:var(--shadow); border:1px solid rgba(2,8,23,.06)}
+    .card-row{display:grid; grid-template-columns:1fr; gap:14px}
+    .resume-card{border-radius:16px; border:1px solid rgba(2,8,23,.06); padding:14px; background:#fff}
+    .resume-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
+    .chip{padding:6px 10px; border-radius:999px; font-weight:600; background:rgba(16,185,129,.12); color:#065F46}
+    .mini-lines{height:140px; background:repeating-linear-gradient(#fff 0 22px, rgba(2,8,23,.06) 22px 23px)}
+
+    /* Quick features */
+    .feats{padding:24px 0 8px}
+    .feats-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px}
+    .feat{display:flex; gap:12px; align-items:flex-start; background:#fff; padding:16px; border-radius:14px; border:1px solid rgba(2,8,23,.06)}
+    .tick{width:22px; height:22px; border-radius:6px; background:var(--accent); display:grid; place-items:center; color:#fff}
+
+    /* Section generic */
+    section{padding:56px 0}
+    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:24px}
+    h2{font-size:clamp(24px, 3.5vw, 34px); margin:0 0 8px}
+    .muted{color:var(--muted)}
+
+    /* Samples */
+    .samples{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    .sample{background:#fff; border-radius:16px; border:1px solid rgba(2,8,23,.06); overflow:hidden; box-shadow:var(--shadow)}
+    .sample-head{display:flex; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(2,8,23,.06)}
+    .sample-body{padding:14px 16px}
+    .badge{font-weight:700; font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(14,165,233,.15); color:#075985}
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .ghost{background:#F8FAFC; height:160px; border:1px dashed rgba(2,8,23,.08); border-radius:12px}
+
+    /* Process */
+    .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+    .step{background:#fff; padding:18px; border-radius:16px; border:1px solid rgba(2,8,23,.06)}
+    .step-num{width:34px; height:34px; border-radius:10px; display:grid; place-items:center; font-weight:800; color:#fff; background:var(--brand)}
+
+    /* Pricing */
+    .pricing{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    .plan{background:#fff; padding:22px; border-radius:18px; border:1px solid rgba(2,8,23,.06); position:relative}
+    .popular{position:absolute; top:12px; right:12px; background:var(--ink); color:#fff; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700}
+    .price{font-size:36px; font-weight:800}
+    .ul{margin:14px 0 18px; padding:0; list-style:none}
+    .ul li{display:flex; gap:8px; align-items:flex-start; margin:10px 0}
+
+    /* Testimonials */
+    .testi{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    .quote{background:#fff; padding:18px; border-radius:16px; border:1px solid rgba(2,8,23,.06)}
+    .avatar{width:36px; height:36px; border-radius:50%; background:linear-gradient(45deg, var(--brand), var(--accent))}
+
+    /* FAQ */
+    .faq{display:grid; grid-template-columns:1fr; gap:12px}
+    .faq-item{background:#fff; border:1px solid rgba(2,8,23,.06); border-radius:14px; overflow:hidden}
+    .faq-q{display:flex; justify-content:space-between; padding:16px; cursor:pointer; font-weight:700}
+    .faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease; padding:0 16px}
+    .faq-a.open{padding:16px;}
+
+    /* Footer */
+    footer{padding:36px 0 56px; border-top:1px solid rgba(2,8,23,.08)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .feats-grid{grid-template-columns:1fr}
+      .samples{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr 1fr}
+      .pricing{grid-template-columns:1fr}
+      .testi{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Resumo</span>
+      </div>
+      <div class="nav-cta">
+        <a class="btn" href="#samples">Examples</a>
+        <a class="btn" href="#pricing">Pricing</a>
+        <a class="btn-primary btn" href="https://wa.me/00000000" target="_blank" rel="noopener">WhatsApp: 00000000</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">ATS‑friendly • Recruiter‑approved</span>
+        <h1 class="title">Open a <span style="background:linear-gradient(90deg,var(--brand),var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent">career‑ready resume</span> in minutes</h1>
+        <p class="subtitle">We rewrite, redesign, and keyword-optimize your resume to pass ATS scans and impress real hiring managers — all with a clean, modern layout that puts your strengths first.</p>
+        <div class="cta-row">
+          <a class="btn-primary btn" href="https://wa.me/00000000" target="_blank" rel="noopener">Start on WhatsApp</a>
+          <a class="btn" href="#pricing">See plans</a>
+        </div>
+        <div class="trust">
+          <div class="stars" aria-label="5 star quality">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
+          <span>Trusted by students, juniors & professionals.</span>
+        </div>
+      </div>
+
+      <!-- Mockup side -->
+      <div class="mock" aria-label="resume preview">
+        <div class="card-row">
+          <div class="resume-card">
+            <div class="resume-head">
+              <strong>Before</strong>
+              <span class="chip">Unfocused</span>
+            </div>
+            <div class="mini-lines"></div>
+          </div>
+          <div class="resume-card">
+            <div class="resume-head">
+              <strong>After</strong>
+              <span class="chip" style="background:rgba(14,165,233,.15); color:#075985">ATS‑Ready</span>
+            </div>
+            <div class="mini-lines" style="background:repeating-linear-gradient(#fff 0 22px, rgba(16,185,129,.25) 22px 23px)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- quick features -->
+    <div class="container feats">
+      <div class="feats-grid">
+        <div class="feat"><div class="tick">✓</div><div><strong>Keyword optimization</strong><br><span class="muted">Mapped to your target job using industry language.</span></div></div>
+        <div class="feat"><div class="tick">✓</div><div><strong>Design that passes ATS</strong><br><span class="muted">Clean formatting, proper headings, and parsable layout.</span></div></div>
+        <div class="feat"><div class="tick">✓</div><div><strong>Delivered fast</strong><br><span class="muted">First draft in 24–48h with two revision rounds.</span></div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Samples -->
+  <section id="samples">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Real examples</h2>
+          <p class="muted">A peek at formats recruiters love—tailored bullets, tight layout, measurable results.</p>
+        </div>
+        <a class="btn" href="https://wa.me/00000000" target="_blank" rel="noopener">Ask for a free review →</a>
+      </div>
+
+      <div class="samples">
+        <!-- Sample 1 -->
+        <article class="sample">
+          <div class="sample-head">
+            <strong>Graduate – No Experience</strong>
+            <span class="badge">One Page</span>
+          </div>
+          <div class="sample-body grid-2">
+            <div class="ghost" aria-label="before"></div>
+            <div class="ghost" aria-label="after"></div>
+            <ul class="ul" style="grid-column:span 2">
+              <li>✅ Action‑oriented bullets with numbers (e.g., “Improved assignment turnaround by 30%”).</li>
+              <li>✅ Education & projects front‑loaded; skills mapped to job post.</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Sample 2 -->
+        <article class="sample">
+          <div class="sample-head">
+            <strong>Junior Marketing</strong>
+            <span class="badge">ATS‑Friendly</span>
+          </div>
+          <div class="sample-body grid-2">
+            <div class="ghost"></div>
+            <div class="ghost"></div>
+            <ul class="ul" style="grid-column:span 2">
+              <li>✅ Keywords from 3 target roles blended naturally.</li>
+              <li>✅ Clear achievements: CTR, leads, conversion rate.</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Sample 3 -->
+        <article class="sample">
+          <div class="sample-head">
+            <strong>Software Developer</strong>
+            <span class="badge">Impact‑First</span>
+          </div>
+          <div class="sample-body grid-2">
+            <div class="ghost"></div>
+            <div class="ghost"></div>
+            <ul class="ul" style="grid-column:span 2">
+              <li>✅ STAR bullet structure; tech stack placed once, not everywhere.</li>
+              <li>✅ Readable layout, strong verbs, no dense paragraphs.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>How it works</h2>
+          <p class="muted">Simple, collaborative, and transparent from the first message.</p>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Share your goals</h3>
+          <p class="muted">Send your current resume + 2–3 target roles on WhatsApp.</p>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--accent)">2</div>
+          <h3>Deep review</h3>
+          <p class="muted">We audit content, numbers, keywords, and structure.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Rewrite & redesign</h3>
+          <p class="muted">You’ll get a clean, ATS‑parsable layout with tailored bullets.</p>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--brand-600)">4</div>
+          <h3>Finalize</h3>
+          <p class="muted">Two revision rounds + editable files (DOCX & PDF).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Transparent pricing</h2>
+          <p class="muted">Choose what you need today—upgrade anytime.</p>
+        </div>
+        <a class="btn" href="https://wa.me/00000000" target="_blank" rel="noopener">Need help choosing?</a>
+      </div>
+
+      <div class="pricing">
+        <div class="plan">
+          <h3>Starter Review</h3>
+          <p class="muted">Written feedback & priority fixes.</p>
+          <div class="price">$19</div>
+          <ul class="ul">
+            <li>✓ Detailed review (PDF)</li>
+            <li>✓ Keyword gap list</li>
+            <li>✓ 15‑minute WhatsApp consult</li>
+          </ul>
+          <a class="btn" href="https://wa.me/00000000" target="_blank" rel="noopener">Get Review</a>
+        </div>
+
+        <div class="plan" style="border-width:2px">
+          <div class="popular">Most Popular</div>
+          <h3>Professional Rewrite</h3>
+          <p class="muted">Full rewrite + modern layout.</p>
+          <div class="price">$59</div>
+          <ul class="ul">
+            <li>✓ One‑page ATS resume</li>
+            <li>✓ Role‑specific keywords</li>
+            <li>✓ 2 revisions within 7 days</li>
+            <li>✓ Files: DOCX & PDF</li>
+          </ul>
+          <a class="btn-primary btn" href="https://wa.me/00000000" target="_blank" rel="noopener">Start Professional</a>
+        </div>
+
+        <div class="plan">
+          <h3>Complete Career Kit</h3>
+          <p class="muted">Resume + Cover Letter + LinkedIn.</p>
+          <div class="price">$99</div>
+          <ul class="ul">
+            <li>✓ Everything in Professional</li>
+            <li>✓ Tailored cover letter</li>
+            <li>✓ LinkedIn headline & about</li>
+            <li>✓ Interview talking points</li>
+          </ul>
+          <a class="btn" href="https://wa.me/00000000" target="_blank" rel="noopener">Get the Kit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>What clients say</h2>
+          <p class="muted">Short stories from recent projects.</p>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="quote">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px">
+            <div class="avatar" aria-hidden="true"></div>
+            <strong>Yasmine • Junior Dev</strong>
+          </div>
+          <p>“Went from no replies to 4 interviews in two weeks. The bullet rewrites and clean layout made the difference.”</p>
+        </div>
+        <div class="quote">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px">
+            <div class="avatar" aria-hidden="true"></div>
+            <strong>Omar • Marketing Assistant</strong>
+          </div>
+          <p>“They pulled keywords from my target jobs and integrated them naturally. ATS scan score jumped immediately.”</p>
+        </div>
+        <div class="quote">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px">
+            <div class="avatar" aria-hidden="true"></div>
+            <strong>Sara • Designer</strong>
+          </div>
+          <p>“Clear structure and impact numbers. Recruiter commented on how easy it was to read.”</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <div class="section-head"><h2>FAQs</h2></div>
+      <div class="faq">
+        <div class="faq-item">
+          <div class="faq-q">Do you use ATS‑friendly templates?<span>+</span></div>
+          <div class="faq-a"><p>Yes. We use clean formatting, standard headings, and a structure that parses correctly in most applicant tracking systems.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What files will I receive?<span>+</span></div>
+          <div class="faq-a"><p>You’ll receive editable DOCX and print‑ready PDF files. On request, we can also share a Google Docs version.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How many revisions are included?<span>+</span></div>
+          <div class="faq-a"><p>Two rounds within 7 days for the Professional & Complete plans. Extra revisions are available if needed.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How do we communicate?<span>+</span></div>
+          <div class="faq-a"><p>We primarily use WhatsApp for speed. Message us at <a href="https://wa.me/00000000" target="_blank" rel="noopener">00000000</a>.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Resumo</span>
+      </div>
+      <div class="muted">© <span id="y"></span> Resumo • <a href="https://wa.me/00000000" target="_blank" rel="noopener">WhatsApp 00000000</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+    // faq
+    document.querySelectorAll('.faq-item').forEach(item=>{
+      const q=item.querySelector('.faq-q');
+      const a=item.querySelector('.faq-a');
+      q.addEventListener('click',()=>{
+        const open=a.style.maxHeight && a.style.maxHeight!=='0px';
+        document.querySelectorAll('.faq-a').forEach(x=>{x.style.maxHeight='0px'; x.classList.remove('open')});
+        if(!open){a.style.maxHeight=a.scrollHeight+'px'; a.classList.add('open')} else {a.style.maxHeight='0px';}
+      })
+    })
+  </script>
+</body>
+</html>
